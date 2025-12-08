@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    
+    {% comment %} FONTS {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">TaskFlow</div>
+
+        <nav class="menu">
+            <a href="#" class="active">Dashboard</a>
+            <a href="#">Tasks</a>
+            <a href="#">Projects</a>
+            <a href="#">Statistics</a>
+            <a href="#">Settings</a>
+        </nav>
+
+<br><br><br><br>
+        <nav class="menu">
+            <a href="#" class="active">Project</a>
+            <a href="#">Personal</a>
+            <a href="#">Work</a>
+            <a href="#">Vacantion</a>
+            <a href="#">weekends</a>
+        </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+            </div>
+
+            <div class="header-right">
+                <a href="#">Profile</a>
+                <a href="#">Logout</a>
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+    </div>
+
+</div>
+
+</body>
+</html>
