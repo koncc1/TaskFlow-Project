@@ -1,0 +1,103 @@
+/* ===== AUTH (Login/Register) ===== */
+.auth-container {
+    max-width: 450px;
+    margin: 80px auto;
+    padding: 36px 28px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    font-family: "Montserrat", sans-serif;
+    color: #111827;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-weight: 700;
+    font-size: 26px;
+    color: #1f2937;
+}
+
+/* ===== FORM ===== */
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ІНПУТИ */
+.auth-container input {
+    padding: 14px;
+    font-size: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: #111827;             /* текст всередині інпуту */
+    background-color: #f9fafb;  /* світлий фон */
+}
+
+.auth-container input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 6px rgba(249,115,22,0.3);
+    background-color: #ffffff;
+}
+
+/* Placeholder */
+.auth-container input::placeholder {
+    color: #6b7280;  /* трохи світліший колір */
+}
+
+/* КНОПКИ */
+.auth-container button {
+    padding: 14px;
+    background: linear-gradient(90deg, #f97316, #f59e0b);
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.auth-container button:hover {
+    background: linear-gradient(90deg, #f59e0b, #f97316);
+    transform: translateY(-2px);
+}
+
+/* ===== FOOTER TEXT ===== */
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #f97316;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.auth-footer a:hover {
+    color: #d97706;
+}
+
+/* ===== BACK TO HOME ===== */
+.back-home {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.back-home:hover {
+    color: #f97316;
+}

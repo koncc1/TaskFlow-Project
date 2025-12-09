@@ -1,0 +1,104 @@
+/* ===== AUTH CONTAINER ===== */
+.auth-container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 36px 32px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    font-family: "Montserrat", sans-serif;
+    color: #1f2937;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-weight: 700;
+    font-size: 26px;
+    color: #1f2937;
+}
+
+/* ===== FORM ===== */
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auth-container input {
+    padding: 14px;
+    font-size: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: #111827;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-container input:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 6px rgba(249,115,22,0.3);
+}
+
+/* ===== BUTTON ===== */
+.auth-container button {
+    padding: 14px;
+    background: linear-gradient(90deg, #f97316, #f59e0b);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.auth-container button:hover {
+    background: linear-gradient(90deg, #f59e0b, #f97316);
+    transform: translateY(-2px);
+}
+
+/* ===== FOOTER LINKS ===== */
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #f97316;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.auth-footer a:hover {
+    color: #d97706;
+}
+
+.back-home {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.back-home a {
+    color: #374151;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.back-home a:hover {
+    color: #f97316;
+}

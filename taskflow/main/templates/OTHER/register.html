@@ -1,0 +1,24 @@
+{% extends 'MAIN/layout.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+    <h2>REGISTER</h2>
+   
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">SING UP</button>
+    </form>
+
+    <div class="auth-footer">
+        HAVE ACCOUNT? <a href="{% url 'login' %}">LOGIN</a>
+    </div>
+    <div class="back-home">
+        <a href="{% url 'home' %}">BACK TO HOME</a>
+    </div>
+</div>
+
+{% endblock %}

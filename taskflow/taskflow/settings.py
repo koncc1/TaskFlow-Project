@@ -62,6 +62,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # додані контакси 
+                'main.context_processors.projects_context',
             ],
         },
     },
@@ -120,3 +123,47 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+
+    "handlers": {
+        "null": {
+            "class": "logging.NullHandler",
+        },
+        "signals_file": {
+            "class": "logging.FileHandler",
+            "filename": str(BASE_DIR / "AuditLog.log"),
+            "formatter": "default",
+        },
+    },
+
+
+    "formatters": {
+        "default": {
+            "format": "[{asctime}] {levelname} {name}: {message}",
+            "style": "{",
+        }
+    },
+
+
+    "loggers": {
+        "django.server": {  
+            "handlers": ["null"],  
+            "level": "INFO",
+            "propagate": False,
+        },
+
+
+        "signals": {
+            "handlers": ["signals_file"],
+            "level": "INFO",
+            "propagate": False,
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'

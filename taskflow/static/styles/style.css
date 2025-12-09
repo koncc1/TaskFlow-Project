@@ -6,7 +6,7 @@
 
 /* ===== GLOBAL ===== */
 body {
-    background: #f9fafb;
+    background: #333b49;
     font-family: "Montserrat", sans-serif;
     color: #111827;
 }
@@ -39,6 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding-bottom: 25px;
 }
 
 .menu a {
@@ -100,6 +101,7 @@ body {
 }
 
 /* ===== MAIN ===== */
+
 .main {
     padding: 32px;
     flex: 1;
