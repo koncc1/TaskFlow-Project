@@ -18,7 +18,8 @@
 
 1. **Клонування репозиторію**
 ```bash
-git clone https://github.com/ВАШ_ЮЗЕР/ВАШ_ПРОЄКТ.git
-cd ВАШ_ПРОЄКТ
+git clone https://github.com/koncc/TaskFlow-Project.git
+cd TaskFlow
+cd taskflow
 python manage.py migrate
 python manage.py runserver
