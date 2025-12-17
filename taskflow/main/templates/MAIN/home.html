@@ -1,8 +1,237 @@
 {% extends 'MAIN/layout.html' %}
-{%block title%} TaskFlow {% endblock%}
+{% block title %}Home{% endblock %}
 
-{%block content%}
+{% block content %}
+<style>
+/* ============================= */
+/* GLOBAL STYLES                 */
+/* ============================= */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f9fafb;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================= */
+/* HERO SECTION                  */
+/* ============================= */
+.hero {
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    color: white;
+    text-align: center;
+    padding: 80px 20px 50px 20px;
+    border-radius: 0 0 50% 50% / 0 0 10% 10%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #ffffff, #ffecd2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ============================= */
+/* METRICS / STATS BLOCK          */
+/* ============================= */
+.metrics {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.metric {
+    background: white;
+    padding: 24px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.metric:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.metric h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #ff4e50;
+}
+
+.metric p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* ============================= */
+/* COLUMNS FOR PROJECTS / TASKS  */
+/* ============================= */
+.columns {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 60px 20px 40px 20px;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    max-width: 450px;
+}
+
+.column h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ff4e50;
+    border-bottom: 2px solid #ff4e50;
+    padding-bottom: 8px;
+}
+
+/* CARD STYLES */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.card .status {
+    margin-top: 6px;
+    font-weight: 600;
+    color: #ff7b50;
+}
+
+/* ============================= */
+/* PHOTO / PROMO BLOCK           */
+/* ============================= */
+.photo-block {
+    margin: 60px 0 40px 0;
+    text-align: center;
+}
+
+.photo-block img {
+    max-width: 320px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.photo-block img:hover {
+    transform: scale(1.07);
+}
+
+/* ============================= */
+/* FOOTER                        */
+/* ============================= */
+.footer {
+    background: #1a1a1a;
+    color: #ccc;
+    padding: 30px 20px;
+    text-align: center;
+    margin-top: 60px;
+    border-radius: 20px 20px 0 0;
+}
+
+.footer a {
+    color: #ff4e50;
+    font-weight: 600;
+}
+
+</style>
+
+<div class="hero">
+    <h1>Welcome to TaskFlow</h1>
+    <p>Take control of your projects and tasks with ease. Organize, track, and collaborate effortlessly.</p>
+</div>
+
+<div class="metrics">
+    <div class="metric">
+        <h2>{{ projects|length }}</h2>
+        <p>Active Projects</p>
+    </div>
+    <div class="metric">
+        <h2>{{ tasks|length }}</h2>
+        <p>Total Tasks</p>
+    </div>
+    <div class="metric">
+        <h2>{{ completed_tasks_count }}</h2>
+
+        <p>Completed Tasks</p>
+    </div>
+</div>
+
+<div class="columns">
 
 
+    <div class="column">
+        <h2>Projects</h2>
+        {% for project in projects|slice:":3" %}
+        <div class="card">
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.description|truncatechars:120 }}</p>
+        </div>
+        {% empty %}
+        <p>No projects available.</p>
+        {% endfor %}
+    </div>
 
-{% endblock%}
+
+    <div class="column">
+        <h2>Tasks</h2>
+        {% for task in tasks|slice:":3"  %}
+        <div class="card">
+            <h3>{{ task.name  }}</h3>
+            <p>{{ task.description|truncatechars:120 }}</p>
+            <p class="status">Status: {{ task.get_status_display }}</p>
+        </div>
+        {% empty %}
+        <p>No tasks available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="footer">
+    <p>Stay productive with <strong>TaskFlow</strong>. &copy; 2025. Visit our <a href="https://taskflow.example.com" target="_blank">website</a>.</p>
+</div>
+{% endblock %}

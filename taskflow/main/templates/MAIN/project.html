@@ -1,7 +1,350 @@
 {% extends 'MAIN/layout.html' %}
-{%block title%} Project {% endblock%}
+{% block title %}Projects{% endblock %}
 
-{%block content%}
+{% block content %}
+<style>
+
+.projects-container {
+    padding: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Title */
+.projects-container h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c2f36;
+    margin-bottom: 25px;
+}
+
+/* Grid */
+.projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Card */
+.project-item {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.project-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Accent line */
+.project-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 22px;
+    width: 45px;
+    height: 4px;
+    background: #ff8c42;
+    border-radius: 4px;
+}
+
+/* Name */
+.project-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f232b;
+    margin-bottom: 10px;
+}
+
+/* Description */
+.project-item p {
+    font-size: 14px;
+    color: #5f6675;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.project-muted {
+    color: #9aa1b1;
+    font-style: italic;
+}
+
+/* Meta */
+.project-item small {
+    font-size: 12px;
+    color: #9aa1b1;
+}
+
+/* Empty state */
+.projects-empty {
+    padding: 50px;
+    text-align: center;
+    font-size: 15px;
+    color: #7a8194;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================= */
+/* PROJECTS PAGE                 */
+/* ============================= */
+
+.projects-page {
+    padding: 5px 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ---------- TOOLBAR ---------- */
+
+.projects-toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbar-left h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f232b;
+}
+
+.projects-count {
+    font-size: 13px;
+    color: #7a8194;
+    background: #f1f3f7;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* Search */
+.projects-search {
+    width: 100%;
+    max-width: 420px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #e1e4ec;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.projects-search:focus {
+    border-color: #ff8c42;
+    box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.15);
+}
+
+/* Create button */
+.btn-create-project {
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    border: 1px solid #000000ff;
+    color: #333;
+    background: #fff;
+    transition: 0.2s;
+    
+}
 
 
-{% endblock%}
+.btn-create-project:hover {
+    border-color: green;
+    color: black;
+    background-color: #56ee28ff;
+}
+
+.btn-create-project a:hover {
+
+}
+toolbar-right:hover{
+    border-color: green;
+    color: black;
+    background-color: #56ee28ff;
+    transform:scale(1.4);
+    transition:2s;
+}   
+/* ---------- PROJECTS GRID ---------- */
+
+.projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Card */
+.project-item {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 22px 24px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+}
+
+.project-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Accent */
+.project-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 22px;
+    width: 42px;
+    height: 4px;
+    background: #ff8c42;
+    border-radius: 4px;
+}
+
+/* Content */
+.project-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f232b;
+    margin-bottom: 10px;
+}
+
+.project-item p {
+    font-size: 14px;
+    color: #5f6675;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.project-muted {
+    color: #9aa1b1;
+    font-style: italic;
+}
+
+/* Footer */
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-date {
+    font-size: 12px;
+    color: #9aa1b1;
+}
+
+/* ---------- EMPTY ---------- */
+
+.projects-empty {
+    padding: 60px;
+    margin-top: 40px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 14px;
+    color: #7a8194;
+    font-size: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+
+.view-btn{
+    text-decoration:none;
+    padding-left:7px;
+    color:black;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+    justify-content:end;
+}
+.view-btn:hover{
+    transform: scale(1.1);
+    transition:1s;
+}
+
+
+.view-cont{
+    width:auto;
+    padding-top:10px;
+    justify-content:end;
+}
+</style>
+
+<div class="projects-page">
+
+    <!-- TOP INFO BAR -->
+    <div class="projects-toolbar">
+
+        <div class="toolbar-left">
+            <h2>Projects</h2>
+            <span class="projects-count">{{ projects|length }} total</span>
+        </div>
+
+        <div class="toolbar-center">
+            <input type="text" placeholder="Search projects..." class="projects-search">
+        </div>
+
+        <div class="toolbar-right">
+            <a href="{% url 'CRUD/project' %}" class="btn-create-project">+ Create project</a>
+        </div>
+
+    </div>
+
+    <!-- PROJECTS GRID -->
+    {% if projects %}
+        <ul class="projects-list">
+            {% for project in projects %}
+                <li class="project-item">
+                    <h3>{{ project.name }}</h3>
+
+                    {% if project.description %}
+                        <p>{{ project.description }}</p>
+                    {% else %}
+                        <p class="project-muted">No description</p>
+                    {% endif %}
+
+                    <div class="project-footer">
+                        <span class="project-date">
+                            Created {{ project.created_at|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    <div class="view-cont">
+                    <a href="{% url 'project_detail' project.pk %}" class="view-btn">View</a>
+                    <a href="{% url 'project_edit' project.pk %}" class="view-btn">Edit</a>
+                    <a href="{% url 'project_delete' project.pk %}" class="view-btn">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="projects-empty">
+            No projects yet. Create your first one.
+        </div>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

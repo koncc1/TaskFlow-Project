@@ -65,6 +65,7 @@ TEMPLATES = [
 
                 # додані контакси 
                 'main.context_processors.projects_context',
+                'main.context_processors.tasks_context',
             ],
         },
     },

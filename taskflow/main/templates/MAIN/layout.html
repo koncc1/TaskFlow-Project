@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title><3..{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
     <link rel="stylesheet" href="{% static 'styles/login.css' %}">
     <link rel="stylesheet" href="{% static 'styles/register.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/task.css' %}">
     
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
@@ -16,9 +17,148 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
 </head>
 <body>
+    <style> 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== GLOBAL ===== */
+html, body {
+    height: 100%;
+}
+
+body {
+    background: #f9fafb;
+    font-family: "Montserrat", sans-serif;
+    color: #111827;
+}
+
+/* ===== APP LAYOUT ===== */
+.app {
+    display: flex;
+    min-height: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    /* Градієнт для сайдбару */
+    background: linear-gradient(180deg, #1a0709, #43040a, #6a0d0d);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+    min-height: 100vh;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+    padding-bottom:50px;
+}
+
+/* ===== MENU ===== */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom:40px;
+}
+
+.menu2 {
+    margin-top:150%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    color: White;
+}
+.menu2 a {
+    text-decoration: none;
+    color: #000000ff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    border:1px solid white;
+    background-color: #ffffffff ;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #d1d5db;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+}
+
+.menu a:hover {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+}
+
+.menu h2.active {
+    color: #dadadaff;
+    padding-bottom:20px;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Легкий градієнт для контенту */
+    background: linear-gradient(120deg, #f9fafb, #e2e8f0);
+}
+
+/* ===== HEADER ===== */
+.header {
+    height: 64px;
+    /* Градієнт для хедера */
+    background: linear-gradient(90deg, #ffffff, #f3f4f6);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.header-right {
+    display: flex;
+    gap: 24px;
+}
+
+.header-right a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.header-right a:hover {
+    color: #f97316;
+}
+
+/* ===== MAIN ===== */
+.main {
+    padding: 32px;
+    flex: 1;
+    overflow-y: auto;
+}
+</style>
 
 <div class="app">
 
@@ -28,33 +168,33 @@
 
         <nav class="menu">
             <h2 class="active">Menu</h2 >
-            <a href="#">Tasks</a>
-            <a href="#">Statistics</a>
-            <a href="#">Settings</a>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'task' %}">Tasks</a>
+            <a href="{% url 'project' %}">Projects</a>
         </nav>
 
-    {% comment %} ПІДГРУЩЗКА ПРОЄКТІВ {% endcomment %}
-    
+        {% comment %} ПІДГРУЩЗКА ПРОЄКТІВ {% endcomment %}
         <nav class="menu">
             <h2 class="active">Project</h2>
             {% for project in projects %}
-                <a href="#">{{ project.name }}</a>
+                <a class="atext" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
             {% endfor %}
         </nav>
 
+        <nav class="menu">
+            <h2 class="active">Other</h2>
+            <a href="{% url 'task' %}">Coming soon..</a>
+        </nav>
     </aside>
 
-    <!-- CONTENT -->
     <div class="content">
-
-        <!-- HEADER -->
         <header class="header">
             <div class="header-left">
                 <h1>{% block page_title %}Dashboard{% endblock %}</h1>
             </div>
 
             <div class="header-right">
-                <a href="#">Profile</a>
+                <a href="{% url 'statistic' %}">Profile</a>
                 {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}">Logout</a>
                 {% else %}
@@ -63,12 +203,10 @@
             </div>
         </header>
 
-        <!-- MAIN -->
         <main class="main">
             {% block content %}
             {% endblock %}
         </main>
-
     </div>
 
 </div>

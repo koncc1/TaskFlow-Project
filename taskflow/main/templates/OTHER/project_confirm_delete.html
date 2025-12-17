@@ -1,0 +1,82 @@
+{% extends 'MAIN/layout.html' %}
+
+{% block title %}Delete Project{% endblock %}
+
+{% block content %}
+
+<style>
+/* ============================= */
+/* DELETE TASK PAGE – під проект */
+/* ============================= */
+.delete-page {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px 35px;
+    background: #ffffff; /* світлий фон сторінки */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    text-align: center;
+}
+
+.delete-page h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333; 
+}
+
+.delete-page form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-danger {
+    background-color: #FF6F3C; /* помаранчевий */
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #ff8b60;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #f4f5f7; /* світлий */
+    border: 1px solid #FF6F3C;
+    color: #FF6F3C;
+}
+
+.btn-secondary:hover {
+    background-color: #FF6F3C;
+    color: #fff;
+    transform: scale(1.05);
+}
+</style>
+
+<div class="delete-page">
+    <h1>Are you sure you want to delete "{{ project.name }}"?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'task' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'MAIN/layout.html' %}
+
+{% block title %}STATISTICS{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div style="max-width: 900px; margin: 40px auto; font-family: 'Montserrat', sans-serif;">
+
+    <div style="text-align: center; margin-bottom: 50px;">
+        <h1 style="font-size: 2.2rem; color: #333;">{{ user.username }}'s Task Statistics</h1>
+        <p style="font-size: 1rem; color: #555;">Total Tasks: <strong>{{ total_tasks }}</strong></p>
+        <p style="font-size: 1rem; color: #555;">Completed: <strong>{{ done }} ({{ done_percentage }}%)</strong></p>
+        <p style="font-size: 1rem; color: #555;">Projects Created: <strong>{{ projects_count }}</strong></p>
+    </div>
+
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px;">
+
+        <div style="background: #fdfdfd; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px;">
+            <h3 style="text-align: center; margin-bottom: 15px; color: #333;">Task Distribution</h3>
+            <canvas id="taskPie"></canvas>
+            <ul style="list-style: none; padding: 0; margin-top: 20px; text-align: center;">
+                <li style="color: #ff4d4d; font-weight: 600;">To Do: {{ todo }}</li>
+                <li style="color: #ffd11a; font-weight: 600;">In Progress: {{ in_progress }}</li>
+                <li style="color: #33cc33; font-weight: 600;">Done: {{ done }}</li>
+            </ul>
+        </div>
+
+        <div style="background: #fdfdfd; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px;">
+            <h3 style="text-align: center; margin-bottom: 15px; color: #333;">Projects Created</h3>
+            <canvas id="taskBar"></canvas>
+        </div>
+
+    </div>
+
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; margin-top: 60px;">
+
+        <div style="background: #fdfdfd; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px;">
+            <h3 style="text-align: center; margin-bottom: 15px; color: #333;">Top 5 Tasks</h3>
+            <ol style="padding-left: 20px;">
+                {% for task in top_tasks %}
+                    <li>{{ task.name|truncatechars:30 }} ({{ task.status }})</li>
+                {% empty %}
+                    <p style="text-align:center;">No tasks available.</p>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div style="background: #fdfdfd; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px;">
+            <h3 style="text-align: center; margin-bottom: 15px; color: #333;">Top 5 Projects</h3>
+            <ol style="padding-left: 20px;">
+                {% for project in top_projects %}
+                    <li>{{ project.name|truncatechars:30 }} ({{ project.tasks_count }} tasks)</li>
+                {% empty %}
+                    <p style="text-align:center;">No projects available.</p>
+                {% endfor %}
+            </ol>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const pieCtx = document.getElementById('taskPie').getContext('2d');
+new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+        labels: ['To Do', 'In Progress', 'Done'],
+        datasets: [{
+            data: [{{ todo }}, {{ in_progress }}, {{ done }}],
+            backgroundColor: ['#ff4d4d', '#ffd11a', '#33cc33'],
+            borderColor: '#000000ff',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { family: 'Montserrat' } } },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.label + ': ' + context.raw + ' tasks';
+                    }
+                }
+            }
+        }
+    }
+});
+
+const barCtx = document.getElementById('taskBar').getContext('2d');
+new Chart(barCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Projects Created'],
+        datasets: [{
+            label: 'Projects',
+            data: [{{ projects_count }}],
+            backgroundColor: ['#33cc33'],
+            borderColor: '#000',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.label + ': ' + context.raw + ' projects';
+                    }
+                }
+            }
+        },
+        scales: {
+            y: { beginAtZero: true, precision:0 }
+        }
+    }
+});
+</script>
+{% endblock %}

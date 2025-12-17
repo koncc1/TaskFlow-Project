@@ -1,0 +1,340 @@
+{% extends 'MAIN/layout.html' %}
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+
+<style>
+/* ============================= */
+/* GLOBAL                        */
+/* ============================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================= */
+/* CONTAINER                     */
+/* ============================= */
+
+.tasks-container {
+    padding: 25px 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ============================= */
+/* FILTER BUTTONS                */
+/* ============================= */
+
+.tasks-filter {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    border: 1px solid #cacacaff;
+    color: #333;
+    background: #fff;
+    transition: 0.2s;
+    
+}
+.filter-btn:hover{
+    transform:scale(1.1);
+}
+.filter-btn.active {
+    background: #ff6f3c;
+    border-color: #ff6f3c;
+    color: #fff;
+}
+
+/* ============================= */
+/* TASK CARD (COMMON)            */
+/* ============================= */
+
+.task-card {
+    background: #fff;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #cacacaff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 12px; /* відстань між картками */
+}
+
+/* hover для картки – підсвічування */
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.task-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-desc {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-meta {
+    font-size: 12px;
+    color: #888;
+    margin-top: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================= */
+/* ALL MODE – KANBAN             */
+/* ============================= */
+
+.kanban-board {
+    display: flex;
+    gap: 30px; /* трохи більше відстань між колонками */
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.kanban-column {
+    flex: 0 1 calc(33.333% - 20px); /* 3 колонки в ряд */
+    min-width: 260px;
+    background: #f9fafc;
+    padding: 20px; /* додаткові внутрішні відступи */
+    border-radius: 16px;
+    border: 1px solid #cacacaff;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s; /* для плавного ефекту */
+}
+.kanban-column:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.column-title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+
+@media (max-width: 1200px) {
+    .kanban-column {
+        flex: 0 1 calc(50% - 15px); /* 2 колонки в ряд */
+    }
+}
+
+@media (max-width: 900px) {
+    .kanban-column {
+        flex: 0 1 100%; /* 1 колонка в ряд */
+    }
+}
+
+/* ============================= */
+/* FILTERED MODE – GRID          */
+/* ============================= */
+
+.tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .tasks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .tasks-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.tasks-filter {
+    display: flex;
+    justify-content: space-between; /* лівий блок вліво, правий вправо */
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-left,
+
+.filter-right {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+.filter-right:hover{
+    border-color:green;
+    transform:2s.
+}
+.filter-right a {
+    transition: transform 0.3s ease, border-color 0.3s ease; /* плавний ефект */
+    display: inline-block; /* щоб transform працював коректно */
+    
+}
+
+/* hover ефект */
+.filter-right a:hover {
+    border-color: green;
+    color: black;
+    background-color: #56ee28ff;
+    transform: rotate(-2deg) translateY(-2px); /* легке покачування */
+       transition:1s
+}
+
+.projects-toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+.view-btn{
+    text-decoration:none;
+    padding-left:7px;
+    color:black;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+    justify-content:end;
+}
+.view-btn:hover{
+    transform: scale(1.1);
+    transition:1s;
+}
+
+
+.view-cont{
+    width:auto;
+    padding-top:10px;
+    justify-content:end;
+}
+</style>
+
+
+<!-- ================= FILTER ================= -->
+
+<div class="projects-toolbar">
+    <div class="filter-left">
+        <a href="?status=all"
+           class="filter-btn {% if current_status == 'all' %}active{% endif %}">
+            ALL
+        </a>
+
+        {% for status, label in status_choices %}
+            <a href="?status={{ status }}"
+               class="filter-btn {% if current_status == status %}active{% endif %}">
+                {{ label|upper }}
+            </a>
+        {% endfor %}
+
+
+        <a href="?filter=overdue"
+   class="filter-btn " style="color:red">
+   OVERDUE
+</a>
+
+    </div>
+
+    <div class="filter-right">
+        <a href="{% url 'CRUD/task' %}" class="filter-btn">+ Create task</a>
+    </div>
+</div>
+
+<!-- ================= CONTENT ================= -->
+
+{% if current_status == 'all' %}
+
+<!-- ======= KANBAN ======= -->
+<div class="kanban-board">
+    {% for column in columns %}
+        <div class="kanban-column">
+            <h3 class="column-title">{{ column.label|upper }}</h3>
+
+            {% for task in column.tasks %}
+                <div class="task-card">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-desc">{{ task.description }}</div>
+                    <div class="task-meta">
+                        <strong>Project:</strong> {{ task.project.name }}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="task-meta">No tasks</div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% else %}
+
+<!-- ======= GRID ======= -->
+
+<div class="tasks-grid">
+    {% for column in columns %}
+        {% if column.status == current_status %}
+            {% for task in column.tasks %}
+                <div class="task-card">
+                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-desc">{{ task.description }}</div>
+                    <div class="task-meta">
+                        <strong>Project:</strong> {{ task.project.name }}
+                    </div>
+                   <div class="view-cont">
+                    <a href="{% url 'task_detail' task.pk %}" class="view-btn">View</a>
+                    <a href="{% url 'task_edit' task.pk %}" class="view-btn">Edit</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="view-btn">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endif %}
+
+{% endblock %}

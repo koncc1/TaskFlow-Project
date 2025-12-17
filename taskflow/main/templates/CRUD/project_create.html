@@ -1,0 +1,76 @@
+{% extends "MAIN/layout.html" %}
+
+{% block title %}Create project{% endblock %}
+
+
+{% block content %}
+
+<style>
+.tasks-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff; /* світлий фон */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    color: #111827;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tasks-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #f97316; /* помаранчевий акцент */
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.tasks-container form input,
+.tasks-container form select,
+.tasks-container form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    color: #111827;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.tasks-container form input:focus,
+.tasks-container form select:focus,
+.tasks-container form textarea:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 6px rgba(249, 115, 22, 0.3);
+}
+
+.tasks-container form button.filter-btn {
+    width: 100%;
+    padding: 12px;
+    background: #f97316;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.tasks-container form button.filter-btn:hover {
+    background: #ea580c;
+    transform: translateY(-2px);
+}
+
+</style>
+<div class="tasks-container">
+    <h2>Create Project</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="filter-btn">Save Project</button>
+    </form>
+</div>
+{% endblock %}

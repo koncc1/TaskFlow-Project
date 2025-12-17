@@ -1,0 +1,153 @@
+{% extends 'MAIN/layout.html' %}
+
+{% block title %}Task Form{% endblock %}
+
+{% block content %}
+
+<style>
+/* ============================= */
+/* FORM PAGE                     */
+/* ============================= */
+.form-page {
+    max-width: 620px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================= */
+/* HEADER                        */
+/* ============================= */
+.form-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2f2f2f;
+}
+
+/* ============================= */
+/* FORM CARD                     */
+/* ============================= */
+.task-form {
+    background: #ffffff;
+    padding: 28px 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+}
+
+/* ============================= */
+/* DJANGO FORM ELEMENTS          */
+/* ============================= */
+.task-form p {
+    margin-bottom: 16px;
+}
+
+.task-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: #111;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.task-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.task-form input:focus,
+.task-form textarea:focus,
+.task-form select:focus {
+    outline: none;
+    border-color: #ff6f3c;
+    box-shadow: 0 0 0 2px rgba(255, 111, 60, 0.15);
+}
+
+/* ============================= */
+/* FORM ACTIONS                  */
+/* ============================= */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* ============================= */
+/* BUTTONS                       */
+/* ============================= */
+.btn {
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-submit {
+    background: #ff6f3c;
+    color: #fff;
+}
+
+.btn-cancel {
+    background: #2f2f2f;
+    color: #fff;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* ============================= */
+/* RESPONSIVE                    */
+/* ============================= */
+@media (max-width: 600px) {
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+
+<div class="form-page">
+    <header class="form-header">
+        <h1>{% if form.instance.pk %}Edit Task{% else %}Create Task{% endif %}</h1>
+    </header>
+
+    <form method="post" enctype="multipart/form-data" class="task-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-submit">Save</button>
+            <a href="{% url 'task' %}" class="btn btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
